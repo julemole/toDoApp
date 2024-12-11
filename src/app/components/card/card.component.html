@@ -1,0 +1,10 @@
+<ion-card [ngClass]="task.completed! ? 'completed' : 'pending'">
+  <ion-card-header>
+    <ion-card-title>{{ category }}</ion-card-title>
+    <ion-card-subtitle>{{ title }}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-button color="light" size="small" (click)="markDone()" [disabled]="task.completed">Done</ion-button>
+    <ion-button color="danger" size="small" (click)="deleteTask()">Delete</ion-button>
+  </ion-card-content>
+</ion-card>

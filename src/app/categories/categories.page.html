@@ -1,0 +1,95 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>CATEGORIES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="btn-container">
+    <ion-button
+      type="submit"
+      expand="block"
+      (click)="openModal('add')"
+    >
+      <ion-icon slot="start" name="add"></ion-icon>
+      New category
+    </ion-button>
+  </div>
+  <ion-card>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="1">ID</th>
+            <th colspan="8">Name</th>
+            <th colspan="3">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Renderizado dinámico de la tabla -->
+          @for(category of categories(); track category.id) {
+            <tr>
+              <td colspan="1">{{category.id}}</td>
+              <td colspan="8">{{category.name}}</td>
+              <td colspan="3">
+                <ion-button
+                  color="primary"
+                  (click)="openModal('edit', category)"
+                >
+                  <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                </ion-button>
+                <ion-button
+                  color="danger"
+                  (click)="deleteCategory(category.id!)"
+                >
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </ion-card>
+
+  @if(showModal){
+    <ion-modal [isOpen]="showModal" (ionModalDidDismiss)="closePreview()" keyboardResize="none" keyboardClose="none">
+      <ng-template>
+        <ion-content>
+          <ion-toolbar>
+            <ion-title class="ion-margin">{{action === 'add' ? 'Add category' : 'Edit category'}}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button color="light" (click)="closePreview()">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+          <form>
+            <section class="ion-padding-horizontal ion-padding-top">
+              <div class="ion-margin-bottom">
+                <ion-input
+                  label="Name *"
+                  name="name"
+                  label-placement="floating"
+                  fill="outline"
+                  type="text"
+                  class="ion-margin-bottom"
+                  [(ngModel)]="categoryName"
+                  errorText="field required"
+                ></ion-input>
+              </div>
+            </section>
+            <div class="btn-container">
+              <ion-button
+                type="submit"
+                expand="block"
+                (click)="action === 'add' ? addCategory() : editCategory()"
+              >
+                Save
+              </ion-button>
+            </div>
+          </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  }
+
+</ion-content>

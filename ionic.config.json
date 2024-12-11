@@ -1,0 +1,7 @@
+{
+  "name": "acc_ToDoApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
